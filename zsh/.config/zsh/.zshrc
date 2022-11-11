@@ -76,10 +76,18 @@ compinit
 autoload edit-command-line; zle -N edit-command-line
 # bindkey '^e' edit-command-line
 
-# Environment variables set everywhere
-export EDITOR="nvim"
+# Default Apps
+export EDITOR="vim"
+export READER="llpp"
+export VISUAL="vim"
 export TERMINAL="alacritty"
-export BROWSER="brave"
+export BROWSER="firefox"
+export VIDEO="mpv"
+export IMAGE="nsxiv"
+export COLORTERM="truecolor"
+export OPENER="xdg-open"
+export PAGER="less"
+export TERM='xterm-256color'
 
 # For QT Themes
 export QT_QPA_PLATFORMTHEME=qt5ct
