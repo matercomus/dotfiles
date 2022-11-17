@@ -3,6 +3,8 @@ xrandr --output eDP1 --mode 1920x1080 --pos 0x1080 --rotate normal --output DP1 
 DISPLAY=":0" picom -b &
 
 
+nitrogen --restore &
+
 sleep 1
 /usr/bin/pipewire &
 sleep 1
@@ -14,7 +16,6 @@ twmnd &
 
 dwmblocks &
 
-nitrogen --restore &
 
 export AWT_TOOLKIT=MToolkit
 export JDK_JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
