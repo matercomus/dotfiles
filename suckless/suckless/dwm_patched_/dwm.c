@@ -222,6 +222,10 @@ struct Monitor {
 	int num;
 	int mx, my, mw, mh;   /* screen size */
 	int wx, wy, ww, wh;   /* window area  */
+	int gappih;           /* horizontal gap between windows */
+	int gappiv;           /* vertical gap between windows */
+	int gappoh;           /* horizontal outer gaps */
+	int gappov;           /* vertical outer gaps */
 	unsigned int seltags;
 	unsigned int sellt;
 	unsigned int tagset[2];
@@ -530,6 +534,9 @@ arrangemon(Monitor *m)
 	strncpy(m->ltsymbol, m->lt[m->sellt]->symbol, sizeof m->ltsymbol);
 	if (m->lt[m->sellt]->arrange)
 		m->lt[m->sellt]->arrange(m);
+	Client *c;
+	for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
+		drawroundedcorners(c);
 }
 
 void
@@ -865,6 +872,10 @@ createmon(void)
 	m->mfact = mfact;
 	m->nmaster = nmaster;
 	m->showbar = showbar;
+	m->gappih = gappih;
+	m->gappiv = gappiv;
+	m->gappoh = gappoh;
+	m->gappov = gappov;
 	for (mi = 0, mon = mons; mon; mon = mon->next, mi++); // monitor index
 	m->index = mi;
 	m->lt[0] = &layouts[0];
@@ -913,6 +924,9 @@ createmon(void)
 		m->pertag->ltidxs[i][1] = m->lt[1];
 		m->pertag->sellts[i] = m->sellt;
 
+		m->pertag->enablegaps[i] = 1;
+		m->pertag->gaps[i] =
+			((gappoh & 0xFF) << 0) | ((gappov & 0xFF) << 8) | ((gappih & 0xFF) << 16) | ((gappiv & 0xFF) << 24);
 	}
 	return m;
 }
@@ -1562,6 +1576,7 @@ movemouse(const Arg *arg)
 			if (!selmon->lt[selmon->sellt]->arrange || c->isfloating) {
 				resize(c, nx, ny, c->w, c->h, 1);
 			}
+			drawroundedcorners(c);
 			break;
 		}
 	} while (ev.type != ButtonRelease);
@@ -1571,6 +1586,7 @@ movemouse(const Arg *arg)
 		selmon = m;
 		focus(NULL);
 	}
+	drawroundedcorners(c);
 	ignoreconfigurerequests = 0;
 }
 
@@ -1725,6 +1741,7 @@ resizemouse(const Arg *arg)
 			}
 			if (!selmon->lt[selmon->sellt]->arrange || c->isfloating) {
 				resize(c, c->x, c->y, nw, nh, 1);
+				drawroundedcorners(c);
 			}
 			break;
 		}

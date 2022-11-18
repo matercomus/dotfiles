@@ -10,6 +10,8 @@
 
 /* Other patches */
 #include "pertag.c"
+#include "roundedcorners.c"
+#include "vanitygaps.c"
 /* Layouts */
 #include "layout_facts.c"
 #include "layout_monocle.c"

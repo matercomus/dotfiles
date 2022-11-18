@@ -9,20 +9,22 @@ tile(Monitor *m)
 	Client *c;
 
 
-	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
+	int oh, ov, ih, iv;
+	getgaps(m, &oh, &ov, &ih, &iv, &n);
 
 	if (n == 0)
 		return;
 
-	sx = mx = m->wx;
-	sy = my = m->wy;
-	sh = mh = m->wh;
-	sw = mw = m->ww;
+	sx = mx = m->wx + ov;
+	sy = my = m->wy + oh;
+	mh = m->wh - 2*oh - ih * (MIN(n, m->nmaster) - 1);
+	sh = m->wh - 2*oh - ih * (n - m->nmaster - 1);
+	sw = mw = m->ww - 2*ov;
 
 	if (m->nmaster && n > m->nmaster) {
-		sw = mw * (1 - m->mfact);
-		mw = mw * m->mfact;
-		sx = mx + mw;
+		sw = (mw - iv) * (1 - m->mfact);
+		mw = (mw - iv) * m->mfact;
+		sx = mx + mw + iv;
 	}
 
 	getfacts(m, mh, sh, &mfacts, &sfacts, &mrest, &srest);
@@ -30,10 +32,10 @@ tile(Monitor *m)
 	for (i = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
 		if (i < m->nmaster) {
 			resize(c, mx, my, mw - (2*c->bw), (mh / mfacts) + (i < mrest ? 1 : 0) - (2*c->bw), 0);
-			my += HEIGHT(c);
+			my += HEIGHT(c) + ih;
 		} else {
 			resize(c, sx, sy, sw - (2*c->bw), (sh / sfacts) + ((i - m->nmaster) < srest ? 1 : 0) - (2*c->bw), 0);
-			sy += HEIGHT(c);
+			sy += HEIGHT(c) + ih;
 		}
 }
 

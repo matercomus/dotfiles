@@ -4,6 +4,8 @@ struct Pertag {
 	const Layout *ltidxs[NUMTAGS + 1][2]; /* matrix of tags and layouts indexes  */
 	float mfacts[NUMTAGS + 1]; /* mfacts per tag */
 	unsigned int sellts[NUMTAGS + 1]; /* selected layouts */
+	int enablegaps[NUMTAGS + 1];
+	unsigned int gaps[NUMTAGS + 1];
 };
 
 void
@@ -31,6 +33,10 @@ pertagview(const Arg *arg)
 	selmon->lt[selmon->sellt] = selmon->pertag->ltidxs[selmon->pertag->curtag][selmon->sellt];
 	selmon->lt[selmon->sellt^1] = selmon->pertag->ltidxs[selmon->pertag->curtag][selmon->sellt^1];
 
+	selmon->gappoh = (selmon->pertag->gaps[selmon->pertag->curtag] & 0xff) >> 0;
+	selmon->gappov = (selmon->pertag->gaps[selmon->pertag->curtag] & 0xff00) >> 8;
+	selmon->gappih = (selmon->pertag->gaps[selmon->pertag->curtag] & 0xff0000) >> 16;
+	selmon->gappiv = (selmon->pertag->gaps[selmon->pertag->curtag] & 0xff000000) >> 24;
 
 }
 
