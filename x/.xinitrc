@@ -14,7 +14,7 @@ sleep 1
 
 twmnd &
 
-# dwmblocks &
+dwmblocks &
 # polybar -r &
 
 
