@@ -15,6 +15,7 @@ sleep 1
 twmnd &
 
 dwmblocks &
+# polybar -r &
 
 
 export AWT_TOOLKIT=MToolkit
