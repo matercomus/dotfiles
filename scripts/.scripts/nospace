@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# This script replaces spaces with underscores in file names
+
+# Check if at least one argument was given
+if [ $# -eq 0 ]; then
+  echo "Error: No arguments were given" >&2
+  exit 1
+fi
+
+# Loop through all the arguments
+for file_name in "$@"; do
+  # Check if the file exists
+  if [ ! -e "$file_name" ]; then
+    echo "Error: File does not exist: $file_name" >&2
+    continue
+  fi
+
+  # Replace spaces with underscores in the file name
+  new_file_name=$(echo "$file_name" | tr ' ' '_')
+
+  # Check if the file name was actually changed
+  if [ "$new_file_name" != "$file_name" ]; then
+    # Rename the file
+    mv -v "$file_name" "$new_file_name"
+  fi
+done
+
