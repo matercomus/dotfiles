@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Set the path to the directory containing the screen layouts
+layout_dir=~/.screenlayout
+
+# Use dmenu to select a layout
+layout=$(ls $layout_dir | dmenu -i)
+
+# Check if a layout was selected
+if [ -n "$layout" ]
+then
+    # Run the selected layout script
+    sh "$layout_dir/$layout"
+else
+    echo "No layout selected."
+fi
+
