@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Prompt the user to enter the name of an application using dmenu
+application_name=$(dmenu -p "Enter application name:")
+
+# Find the first window ID of the specified application
+window_id=$(xdotool search --name "$application_name" | head -n 1)
+
+# Suspend the screensaver for the application window
+xdg-screensaver suspend $window_id
+
+# Send a notification to inform the user that the screensaver has been suspended
+notify-send "Screensaver suspended while $application_name' is open."
+

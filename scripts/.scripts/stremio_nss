@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Launch the Stremio application
+stremio &
+
+# Wait for the Stremio window to appear
+sleep 1
+
+# Find the first window ID of the Stremio application
+window_id=$(xdotool search --name "Stremio" | head -n 1)
+
+# Suspend the screensaver for the Stremio window
+xdg-screensaver suspend $window_id
+
