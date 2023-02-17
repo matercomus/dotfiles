@@ -17,8 +17,8 @@ dwmblocks &
 
 
 # set some java stuff
-export AWT_TOOLKIT=MToolkit
-export JDK_JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+#export AWT_TOOLKIT=MToolkit
+#export JDK_JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
 wmname compiz &
 
 clipmenud &

@@ -228,6 +228,7 @@ static const char *web[] = { "firefox", NULL };
 static const char *audio[] = { "pavucontrol", NULL };
 static const char *brightnessup[] = { "sudo", "brightness", "+", NULL };
 static const char *brightnessdown[] = { "sudo", "brightness", "-", NULL };
+static const char *brightnessdefault[] = { "sudo", "brightness", "default", NULL };
 static const char *clipmenu[] = { "clipmenu", NULL };
 
 #include <X11/XF86keysym.h>
@@ -241,6 +242,7 @@ static const Key keys[] = {
         { 0, XF86XK_AudioLowerVolume,   spawn,          SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%") },
         { 0, XF86XK_MonBrightnessUp,    spawn,          {.v = brightnessup } },
         { 0, XF86XK_MonBrightnessDown,  spawn,          {.v = brightnessdown } },
+        { 0, XF86XK_MonBrightnessUp|XF86XK_MonBrightnessDown,    spawn,          {.v = brightnessdefault} },
 	{ MODKEY,                       XK_p,          spawn,                  {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return,     spawn,                  {.v = termcmd } },
 	{ MODKEY,                       XK_a,          spawn,                  {.v = audio } },

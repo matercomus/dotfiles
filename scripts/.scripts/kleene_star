@@ -1,0 +1,43 @@
+#!/usr/bin/env python3
+
+# list all words in a language kleene star
+import re
+from itertools import product
+import sys
+
+
+def kleene_star_words(alphabet: str, max_length: int) -> set:
+    """
+    List all words in a language kleene star
+    :param alphabet: a string of words separated by commas
+    :param max_length: an integer representing the maximum length of the words
+    :return:
+    """
+
+    # Split the alphabet string into individual characters
+    alphabet_chars = alphabet.split(',')
+    # Construct the regular expression pattern using the Kleene star notation
+    pattern = r'^[' + ''.join(alphabet_chars) + r']*$'
+    # Compile the regular expression pattern
+    regex = re.compile(pattern)
+
+    # find the shortest word in the alphabet
+    shortest_word = min(alphabet_chars, key=len)
+    # if the shortest word is longer than the maximum length, return an empty set
+    if len(shortest_word) > max_length:
+        return set()
+
+    # List all words in the language and limit the word length to the maximum length
+    words = [''.join(word) for i in range(1, max_length + 1)
+             for word in product(alphabet_chars, repeat=i)
+             if regex.match(''.join(word))]
+
+    # Only return words that are less than or equal to the maximum length
+    res = set([word for word in words if len(word) <= max_length])
+    # Add the empty word to the set
+    res.add('λ')
+    return res
+
+
+if __name__ == '__main__':
+    print(kleene_star_words(str(sys.argv[1]), int(sys.argv[2])))

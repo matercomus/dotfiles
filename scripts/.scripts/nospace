@@ -16,6 +16,10 @@ for file_name in "$@"; do
     continue
   fi
 
+# Replace brackets with nothing
+  new_file_name=$(echo "$file_name" | tr '(' '_')
+  new_file_name=$(echo "$file_name" | tr ')' '_')
+
   # Replace spaces with underscores in the file name
   new_file_name=$(echo "$file_name" | tr ' ' '_')
 
