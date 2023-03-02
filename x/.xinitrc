@@ -12,25 +12,23 @@ sleep 1
 # launch notofication deamon
 twmnd &
 
+# run dwm blocks (statusbar)
 dwmblocks &
-# polybar -r &
 
-
-# set some java stuff
-#export AWT_TOOLKIT=MToolkit
-#export JDK_JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+# set window manager name
 wmname compiz &
 
+# run clipmenu deamon
 clipmenud &
 
+# set keyboard layout to PL
 setxkbmap pl &
 
+# run network manager applet
 sudo nm-applet &
 
+# run blueman applet
 blueman-applet &
-
-# For QT Themes
-# export QT_QPA_PLATFORMTHEME=qt5ct
 
 # XDG Paths
 export XDG_CONFIG_HOME=$HOME/.config
@@ -41,9 +39,11 @@ export XDG_DATA_HOME=$HOME/.local/share
 export $(dbus-launch) &
 
 # Set up monitors
-xrandr --output eDP1 --mode 1920x1080 --pos 0x1600 --rotate normal --output DP1 --off --output DP1-1 --primary --mode 2560x1600 --pos 0x0 --rotate normal --output DP1-2 --mode 1920x1080 --pos 2560x0 --rotate normal --output DP2 --off --output VIRTUAL1 --off
+xrandr --output eDP1 --off --output DP1 --off --output DP2 --off --output DP2-1 --mode 2560x1600 --pos 0x0 --rotate normal --output DP2-2 --mode 1920x1080 --pos 2560x260 --rotate normal --output VIRTUAL1 --off
+
 # set wallpapers
 nitrogen --restore &
 
+# run DWM
 exec dwm
 
