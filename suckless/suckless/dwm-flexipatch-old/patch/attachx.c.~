@@ -1,6 +1,0 @@
-void
-attachx(Client *c)
-{
-	attach(c); // master (default)
-}
-
