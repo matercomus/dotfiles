@@ -39,7 +39,7 @@ export XDG_DATA_HOME=$HOME/.local/share
 export $(dbus-launch) &
 
 # Set up monitors
-xrandr --output eDP1 --off --output DP1 --off --output DP1-1 --primary --mode 2560x1600 --pos 0x0 --rotate normal --output DP1-2 --mode 1920x1080 --pos 2560x260 --rotate normal --output DP2 --off --output VIRTUAL1 --off &
+/home/matt/.scripts/choose_monitor_layout.sh &
 
 # set wallpapers
 nitrogen --restore &
