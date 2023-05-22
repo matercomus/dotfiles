@@ -12,9 +12,6 @@ sleep 1
 # launch notofication deamon
 twmnd &
 
-# run dwm blocks (statusbar)
-dwmblocks &
-
 # set window manager name
 wmname compiz &
 
@@ -40,6 +37,9 @@ export $(dbus-launch) &
 
 # Set up monitors
 /home/matt/.scripts/choose_monitor_layout.sh &
+
+# run dwm blocks (statusbar)
+dwmblocks &
 
 # set wallpapers
 nitrogen --restore &

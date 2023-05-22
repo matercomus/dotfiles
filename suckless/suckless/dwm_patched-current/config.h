@@ -226,6 +226,7 @@ static const char *dmenucmd[] = {
 static const char *termcmd[]  = { "alacritty", NULL };
 static const char *web[] = { "firefox", NULL };
 static const char *web2[] = { "chromium", NULL };
+static const char *web3[] = { "microsoft-edge-stable", NULL };
 static const char *audio[] = { "pavucontrol", NULL };
 static const char *brightnessup[] = { "sudo", "brightness", "+", NULL };
 static const char *brightnessdown[] = { "sudo", "brightness", "-", NULL };
@@ -251,6 +252,7 @@ static const Key keys[] = {
         { 0,                            XK_Print,      spawn,                  SHCMD("flameshot gui") },
         { MODKEY,                       XK_F1,         spawn,                  {.v = web } },
         { MODKEY,                       XK_F2,         spawn,                  {.v = web2 } },
+        { MODKEY,                       XK_F3,         spawn,                  {.v = web3 } },
 	{ MODKEY,                       XK_b,          togglebar,              {0} },
 	{ MODKEY,                       XK_j,          focusstack,             {.i = +1 } },
 	{ MODKEY,                       XK_k,          focusstack,             {.i = -1 } },
