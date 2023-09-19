@@ -3,6 +3,8 @@ export ZDOTDIR=$HOME/.config/zsh
 HISTFILE=~/.zsh_history
 setopt appendhistory
 
+export TMUX_CONF=~/.config/tmux/tmux.conf
+
 # some useful options (man zshoptions)
 setopt autocd extendedglob nomatch menucomplete
 setopt interactive_comments
@@ -77,9 +79,9 @@ autoload edit-command-line; zle -N edit-command-line
 # bindkey '^e' edit-command-line
 
 # Default Apps
-export EDITOR="vim"
+export EDITOR="lvim"
 export READER="llpp"
-export VISUAL="vim"
+export VISUAL="lvim"
 export TERMINAL="alacritty"
 export BROWSER="firefox"
 export VIDEO="mpv"

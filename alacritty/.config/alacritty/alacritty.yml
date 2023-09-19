@@ -46,8 +46,8 @@ window:
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
   padding:
-   x: 20
-   y: 20
+   x: 10
+   y: 10
 
   # Spread additional padding evenly around the terminal content.
   dynamic_padding: false
@@ -375,7 +375,7 @@ font:
   #
   #command: None
 
-#selection:
+selection:
   # This string contains all characters that are used as separators for
   # "semantic words" in Alacritty.
   #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
@@ -409,7 +409,7 @@ cursor:
   # the style of the active value of the normal cursor.
   #
   # See `cursor.style` for available options.
-  vi_mode_style: Block
+  vi_mode_style: Beam
 
   # Cursor blinking interval in milliseconds.
   #blink_interval: 750
@@ -435,11 +435,15 @@ cursor:
 #   - (macOS) /bin/bash --login
 #   - (Linux/BSD) user login shell
 #   - (Windows) powershell
-#shell:
+shell:
 #  program: /bin/bash
 #  args:
 #    - --login
-
+  # shell:
+    program: /usr/bin/zsh
+    args:
+      - --rcfile
+      - ~/.config/zsh/.zshrc
 # Startup directory
 #
 # Directory the shell is started in. If this is unset, or `None`, the working

@@ -1,0 +1,40 @@
+#!/usr/bin/env python3
+
+import PyPDF2
+import sys
+
+char_limit = 20000
+
+def connect_lines(text):
+    lines = text.split('\n')
+    new_text = ''
+    for line in lines:
+        if line.endswith('-'):
+            new_text += line[:-1]
+        else:
+            new_text += line + ' '
+    return new_text
+
+def extract_pages(pdf_file, start_page, end_page, output_file):
+    with open(pdf_file, 'rb') as f:
+        reader = PyPDF2.PdfReader(f)
+        chapter_text = ""
+        for i in range(start_page-1, end_page):
+            page = reader.pages[i]
+            text = page.extract_text()
+            chapter_text += text
+        chapter_text = connect_lines(chapter_text)
+        with open(output_file, 'w') as f:
+            for i in range(0, len(chapter_text), char_limit):
+                f.write(chapter_text[i:i+char_limit] + '\n\n')
+
+if __name__ == '__main__':
+    if len(sys.argv) != 5:
+        print("Usage: python extract_pages.py <pdf_file> <start_page> <end_page> <output_file>")
+    else:
+        pdf_file = sys.argv[1]
+        start_page = int(sys.argv[2])
+        end_page = int(sys.argv[3])
+        output_file = sys.argv[4]
+        extract_pages(pdf_file, start_page, end_page, output_file)
+

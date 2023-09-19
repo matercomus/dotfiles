@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# This script searches for "pip install" commands in the current directory and its subdirectories
+# and outputs a list of unique package names, one per line.
+
+grep -r "pip install" . | awk -F 'install' '{print $2}' | tr ' ' '\n' | sed 's/"//g' | sort | uniq
+

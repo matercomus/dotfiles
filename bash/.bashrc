@@ -9,9 +9,9 @@ alias ls='ls --color=auto'
 # PS1='[\u@\h \W]\$ '
 
 # Default Apps
-export EDITOR="vim"
+export EDITOR="lvim"
 export READER="llpp"
-export VISUAL="vim"
+export VISUAL="lvim"
 export TERMINAL="alacritty"
 export BROWSER="firefox"
 export VIDEO="mpv"
