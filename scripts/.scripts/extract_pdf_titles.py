@@ -1,5 +1,9 @@
+
 import PyPDF2
 import argparse
+import os
+import sys
+import subprocess
 
 
 def extract_titles(pdf_path):
@@ -20,12 +24,10 @@ def extract_titles(pdf_path):
 def main():
     parser = argparse.ArgumentParser(description='Extract titles from a PDF.')
     parser.add_argument('pdf_path', help='Path to the PDF file.')
-    # Copy to system tray
-    parser.add_argument('-x',
-                        '--system_tray',
-                        action='store_true',
-                        help='Save to system tray.')
-    # Export to txt
+    # To tray
+    parser.add_argument('-x', '--system_tray', action='store_true',
+                        help='Copy to clipboard.')
+    # to txt file
     parser.add_argument('-o', '--output', help='Path to output text file.')
 
     args = parser.parse_args()
@@ -33,8 +35,9 @@ def main():
     titles = extract_titles(args.pdf_path)
 
     if args.system_tray:
-        # This is just a placeholder. You'll need to implement this with a library like pystray.
-        print('Saving titles to system tray is not implemented.')
+        # Copy titles to clipboard using xsel
+        titles_str = '\n'.join(titles)
+        subprocess.run('xsel -bi', input=titles_str, text=True, check=True)
 
     if args.output:
         with open(args.output, 'w') as f:
