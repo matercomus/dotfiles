@@ -375,7 +375,7 @@ font:
   #
   #command: None
 
-selection:
+#selection:
   # This string contains all characters that are used as separators for
   # "semantic words" in Alacritty.
   #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
@@ -409,7 +409,7 @@ cursor:
   # the style of the active value of the normal cursor.
   #
   # See `cursor.style` for available options.
-  vi_mode_style: Beam
+  vi_mode_style: Block
 
   # Cursor blinking interval in milliseconds.
   #blink_interval: 750
@@ -435,11 +435,11 @@ cursor:
 #   - (macOS) /bin/bash --login
 #   - (Linux/BSD) user login shell
 #   - (Windows) powershell
-shell:
+#shell:
 #  program: /bin/bash
 #  args:
 #    - --login
-  # shell:
+  shell:
     program: /usr/bin/zsh
     args:
       - --rcfile

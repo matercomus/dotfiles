@@ -1,3 +1,7 @@
+# Log errors of xinitrc
+exec > ~/.xsession-errors 2>&1 &
+set -x &
+
 # start compositor
 DISPLAY=":0" picom -b &
 
@@ -35,11 +39,11 @@ export XDG_DATA_HOME=$HOME/.local/share
 # keyring stuff bc of vscode issue
 export $(dbus-launch) &
 
-# Set up monitors
-/home/matt/.scripts/choose_monitor_layout.sh &
-
 # run dwm blocks (statusbar)
 dwmblocks &
+
+# Set up monitors
+/home/matt/.scripts/choose_monitor_layout.sh &
 
 # set wallpapers
 nitrogen --restore &
