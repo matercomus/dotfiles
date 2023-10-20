@@ -1,5 +1,0 @@
-#!/bin/sh
-
-url="https://fmovies.wtf/series/avatar-the-last-airbender-mr0z"
-
-firefox --new-window ${url}
