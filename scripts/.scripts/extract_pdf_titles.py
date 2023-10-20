@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import PyPDF2
 import argparse
 import subprocess
@@ -14,12 +16,12 @@ def is_binary(file_path):
 
 def extract_titles(pdf_path, mode):
     pdf_file_obj = open(pdf_path, mode)
-    pdf_reader = PyPDF2.PdfFileReader(pdf_file_obj)
+    pdf_reader = PyPDF2.PdfReader(pdf_file_obj)
     titles = []
 
-    for page_num in range(pdf_reader.numPages):
-        page_obj = pdf_reader.getPage(page_num)
-        text = page_obj.extractText()
+    for page_num in range(len(pdf_reader.pages)):
+        page_obj = pdf_reader.pages[page_num]
+        text = page_obj.extract_text()
         title = text.split('\n')[0]  # assumes title is first line of each page
         titles.append(title)
 
@@ -42,7 +44,7 @@ def main():
     if args.system_tray:
         # Copy titles to clipboard using xclip
         titles_str = '\n'.join(titles)
-        subprocess.run('echo -n "{}" | xclip -selection clipboard'.format(titles_str),
+        subprocess.run(f'echo -n "{titles_str}" | xclip -selection clipboard',
                        shell=True)
 
     if args.output:
