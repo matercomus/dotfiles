@@ -5,8 +5,8 @@ import argparse
 import subprocess
 
 
+# Check if a file is binary or text
 def is_binary(file_path):
-    """Check if a file is binary or text."""
     with open(file_path, 'rb') as f:
         for block in f:
             if b'\0' in block:
@@ -41,8 +41,8 @@ def main():
     mode = 'rb' if is_binary(args.pdf_path) else 'r'
     titles = extract_titles(args.pdf_path, mode)
 
+    # Copy titles to clipboard using xclip
     if args.system_tray:
-        # Copy titles to clipboard using xclip
         titles_str = '\n'.join(titles)
         subprocess.run(f'echo -n "{titles_str}" | xclip -selection clipboard',
                        shell=True)

@@ -3,8 +3,6 @@
 import sys
 import PyPDF2
 
-char_limit = 20000
-
 
 def connect_lines(text):
     lines = text.split('\n')
@@ -24,15 +22,12 @@ def extract_pages(pdf_file, start_page=None, end_page=None, output_file='output.
             start_page = 1
         if end_page is None:
             end_page = len(reader.pages)
-        chapter_text = ""
-        for i in range(start_page-1, end_page):
-            page = reader.pages[i]
-            text = page.extract_text()
-            chapter_text += text
-        chapter_text = connect_lines(chapter_text)
         with open(output_file, 'w') as f:
-            for i in range(0, len(chapter_text), char_limit):
-                f.write(chapter_text[i:i+char_limit] + '\n\n')
+            for i in range(start_page-1, end_page):
+                page = reader.pages[i]
+                text = page.extract_text()
+                text = connect_lines(text)
+                f.write(text + '\n\n')
 
 
 if __name__ == '__main__':
