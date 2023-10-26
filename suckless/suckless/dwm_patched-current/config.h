@@ -232,6 +232,7 @@ static const char *brightnessup[] = { "sudo", "brightness", "+", NULL };
 static const char *brightnessdown[] = { "sudo", "brightness", "-", NULL };
 static const char *brightnessdefault[] = { "sudo", "brightness", "default", NULL };
 static const char *clipmenu[] = { "clipmenu", NULL };
+static const char *normcap[] = { "normcap", NULL };
 
 #include <X11/XF86keysym.h>
 
@@ -250,6 +251,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_a,          spawn,                  {.v = audio } },
   { MODKEY,                       XK_r,          spawn,                  SHCMD("alacritty -t ranger -e ranger") },
   { 0,                            XK_Print,      spawn,                  SHCMD("flameshot gui") },
+  { ShiftMask,                    XK_Print,      spawn,                  {.v = normcap } },
   { MODKEY,                       XK_F1,         spawn,                  {.v = web } },
   { MODKEY,                       XK_F2,         spawn,                  {.v = web2 } },
   { MODKEY,                       XK_F3,         spawn,                  {.v = web3 } },
