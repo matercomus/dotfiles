@@ -48,6 +48,9 @@ dwmblocks &
 # set wallpapers
 nitrogen --restore &
 
+# Start battery check script
+/home/matt/.scripts/battery_check.sh &
+
 # run DWM
 exec dwm
 
