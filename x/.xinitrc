@@ -51,6 +51,9 @@ nitrogen --restore &
 # Start battery check script
 /home/matt/.scripts/battery_check.sh &
 
+# Start syncthing
+syncthing &
+
 # run DWM
 exec dwm
 
