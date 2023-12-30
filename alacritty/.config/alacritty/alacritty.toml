@@ -1,0 +1,27 @@
+[cursor]
+vi_mode_style = "Block"
+
+[cursor.style]
+blinking = "Off"
+shape = "Beam"
+
+[font]
+builtin_box_drawing = true
+size = 11.0
+
+[font.bold]
+family = "Source Code Pro"
+style = "Bold"
+
+[font.italic]
+family = "Source Code Pro"
+style = "Italic"
+
+[font.normal]
+family = "Source Code Pro"
+style = "Regular"
+
+[window]
+decorations = "none"
+dynamic_padding = true
+dynamic_title = true
