@@ -233,10 +233,9 @@ static const char *brightnessdown[] = { "sudo", "brightness", "-", NULL };
 static const char *brightnessdefault[] = { "sudo", "brightness", "default", NULL };
 static const char *clipmenu[] = { "clipmenu", NULL };
 static const char *normcap[] = { "normcap", NULL };
+static const char *obsidian[] = { "obsidian", NULL };
 
 #include <X11/XF86keysym.h>
-
-
 
 static const Key keys[] = {
 	/* modifier                     key            function                argument */
@@ -263,22 +262,26 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_h,          setmfact,               {.f = -0.05} },
 	{ MODKEY,                       XK_l,          setmfact,               {.f = +0.05} },
 	{ MODKEY,                       XK_Return,     zoom,                   {0} },
-	{ MODKEY|Mod4Mask,              XK_u,          incrgaps,               {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_u,          incrgaps,               {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_i,          incrigaps,              {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_i,          incrigaps,              {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_o,          incrogaps,              {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_o,          incrogaps,              {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_6,          incrihgaps,             {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_6,          incrihgaps,             {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_7,          incrivgaps,             {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_7,          incrivgaps,             {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_8,          incrohgaps,             {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_8,          incrohgaps,             {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_9,          incrovgaps,             {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_9,          incrovgaps,             {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_0,          togglegaps,             {0} },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_0,          defaultgaps,            {0} },
+	{ MODKEY,                       XK_o,          spawn,                  {.v = obsidian } },
+  // Window gaps control
+  { MODKEY|ShiftMask,              XK_u,          incrgaps,               {.i = +1 } },
+  { MODKEY|ShiftMask|ControlMask,  XK_u,          incrgaps,               {.i = -1 } },
+  { MODKEY|ShiftMask,              XK_i,          incrigaps,              {.i = +1 } },
+  { MODKEY|ShiftMask|ControlMask,  XK_i,          incrigaps,              {.i = -1 } },
+  { MODKEY|ShiftMask,              XK_o,          incrogaps,              {.i = +1 } },
+  { MODKEY|ShiftMask|ControlMask,  XK_o,          incrogaps,              {.i = -1 } },
+  { MODKEY|ShiftMask,              XK_6,          incrihgaps,             {.i = +1 } },
+  { MODKEY|ShiftMask|ControlMask,  XK_6,          incrihgaps,             {.i = -1 } },
+  { MODKEY|ShiftMask,              XK_7,          incrivgaps,             {.i = +1 } },
+  { MODKEY|ShiftMask|ControlMask,  XK_7,          incrivgaps,             {.i = -1 } },
+  { MODKEY|ShiftMask,              XK_8,          incrohgaps,             {.i = +1 } },
+  { MODKEY|ShiftMask|ControlMask,  XK_8,          incrohgaps,             {.i = -1 } },
+  { MODKEY|ShiftMask,              XK_9,          incrovgaps,             {.i = +1 } },
+  { MODKEY|ShiftMask|ControlMask,  XK_9,          incrovgaps,             {.i = -1 } },
+  { MODKEY|ShiftMask,              XK_0,          togglegaps,             {0} },
+  { MODKEY|ShiftMask|ControlMask,  XK_0,          defaultgaps,            {0} },
+
+
 	{ MODKEY,                       XK_Tab,        view,                   {0} },
 	{ MODKEY|ShiftMask,             XK_c,          killclient,             {0} },
 	{ MODKEY,                       XK_c,          spawn,                  {.v = clipmenu} },
