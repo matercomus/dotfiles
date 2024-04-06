@@ -33,3 +33,5 @@ alias gpg-check="gpg2 --keyserver-options auto-key-retrieve --verify"
 # receive the key of a developer
 alias gpg-retrieve="gpg2 --keyserver-options auto-key-retrieve --receive-keys"
 
+# poetry activate project venv
+alias activate-poetry-env="/home/matt/.scripts/poetry-activate-env.sh"
