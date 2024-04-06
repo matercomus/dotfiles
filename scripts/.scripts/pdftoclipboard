@@ -1,30 +1,5 @@
 #!/bin/bash
 
-# Initialize variables for options
-first_page=""
-last_page=""
-
-# Check if -f and -l options are provided
-while getopts ":f:l:" opt; do
-	case ${opt} in
-	f)
-		first_page=$OPTARG
-		;;
-	l)
-		last_page=$OPTARG
-		;;
-	\?)
-		echo "Invalid option: $OPTARG" 1>&2
-		exit 1
-		;;
-	:)
-		echo "Invalid option: $OPTARG requires an argument" 1>&2
-		exit 1
-		;;
-	esac
-done
-shift $((OPTIND - 1))
-
 # Check if a file name is provided
 if [ -z "$1" ]; then
 	echo "No file name provided. Usage: pdftoclipboard filename.pdf"
@@ -44,14 +19,6 @@ if [ ${1: -4} != ".pdf" ]; then
 fi
 
 # Convert PDF to text and copy to clipboard
-if [ -z "$first_page" ] && [ -z "$last_page" ]; then
-	pdftotext "$1" - | xclip -selection clipboard
-elif [ -z "$last_page" ]; then
-	pdftotext "$1" -f $first_page - | xclip -selection clipboard
-elif [ -z "$first_page" ]; then
-	pdftotext "$1" -l $last_page - | xclip -selection clipboard
-else
-	pdftotext "$1" -f $first_page -l $last_page - | xclip -selection clipboard
-fi
+pdftotext "$@" - | xclip -selection clipboard
 
 echo "Text copied to clipboard from file: $1"
