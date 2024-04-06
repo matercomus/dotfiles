@@ -7,18 +7,18 @@ shape = "Beam"
 
 [font]
 builtin_box_drawing = true
-size = 11.0
+size = 14.0
 
 [font.bold]
-family = "Source Code Pro"
+family = "Fira Code"
 style = "Bold"
 
 [font.italic]
-family = "Source Code Pro"
+family = "Fira Code"
 style = "Italic"
 
 [font.normal]
-family = "Source Code Pro"
+family = "Fira Code"
 style = "Regular"
 
 [window]
