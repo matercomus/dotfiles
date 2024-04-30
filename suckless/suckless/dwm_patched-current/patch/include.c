@@ -14,10 +14,13 @@
 /* Other patches */
 #include "decorationhints.c"
 #include "pertag.c"
+#include "swaptags.c"
+#include "tagswapmon.c"
 #include "vanitygaps.c"
 #include "xrdb.c"
 /* Layouts */
 #include "layout_facts.c"
+#include "layout_centeredmaster.c"
 #include "layout_monocle.c"
 #include "layout_tile.c"
 

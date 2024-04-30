@@ -44,11 +44,6 @@
 #include "drw.h"
 #include "util.h"
 
-
-
-
-
-
 /* macros */
 #define Button6                 6
 #define Button7                 7
@@ -109,7 +104,6 @@ enum {
 	WMLast
 }; /* default atoms */
 
-
 enum {
 	ClkTagBar,
 	ClkLtSymbol,
@@ -133,7 +127,6 @@ enum {
 	BAR_ALIGN_RIGHT_CENTER,
 	BAR_ALIGN_LAST
 }; /* bar alignment */
-
 
 typedef union {
 	int i;
@@ -186,7 +179,6 @@ typedef struct {
 	const Arg arg;
 } Button;
 
-
 typedef struct Client Client;
 struct Client {
 	char name[256];
@@ -210,12 +202,10 @@ typedef struct {
 	const Arg arg;
 } Key;
 
-
 typedef struct {
 	const char *symbol;
 	void (*arrange)(Monitor *);
 } Layout;
-
 
 typedef struct Pertag Pertag;
 struct Monitor {
@@ -262,7 +252,6 @@ typedef struct {
 #define NOSWALLOW
 #define TERMINAL
 #define SWITCHTAG
-
 
 /* function declarations */
 static void applyrules(Client *c);
@@ -429,7 +418,6 @@ applyrules(Client *c)
 	instance = ch.res_name  ? ch.res_name  : broken;
 	wintype  = getatomprop(c, netatom[NetWMWindowType], XA_ATOM);
 
-
 	for (i = 0; i < LENGTH(rules); i++) {
 		r = &rules[i];
 		if ((!r->title || strstr(c->name, r->title))
@@ -569,7 +557,6 @@ buttonpress(XEvent *e)
 	BarArg carg = { 0, 0, 0, 0 };
 	click = ClkRootWin;
 
-
 	/* focus monitor if necessary */
 	if ((m = wintomon(ev->window)) && m != selmon
 	) {
@@ -600,7 +587,6 @@ buttonpress(XEvent *e)
 			break;
 		}
 	}
-
 
 	if (click == ClkRootWin && (c = wintoclient(ev->window))) {
 		focus(c);
@@ -638,9 +624,6 @@ cleanup(void)
 	Monitor *m;
 	Layout foo = { "", NULL };
 	size_t i;
-
-
-
 
 	selmon->lt[selmon->sellt] = &foo;
 	for (m = mons; m; m = m->next)
@@ -918,7 +901,6 @@ createmon(void)
 		bar->borderscheme = SchemeNorm;
 	}
 
-
 	if (!(m->pertag = (Pertag *)calloc(1, sizeof(Pertag))))
 		die("fatal: could not malloc() %u bytes\n", sizeof(Pertag));
 	m->pertag->curtag = m->pertag->prevtag = 1;
@@ -930,15 +912,12 @@ createmon(void)
 		/* init mfacts */
 		m->pertag->mfacts[i] = m->mfact;
 
-
-
 		/* init layouts */
 		m->pertag->ltidxs[i][0] = m->lt[0];
 		m->pertag->ltidxs[i][1] = m->lt[1];
 		m->pertag->sellts[i] = m->sellt;
 
 	}
-
 
 	return m;
 }
@@ -1441,7 +1420,6 @@ manage(Window w, XWindowAttributes *wa)
 	c->oldbw = wa->border_width;
 	updatetitle(c);
 
-
 	if (XGetTransientForHint(dpy, w, &trans) && (t = wintoclient(trans))) {
 		c->mon = t->mon;
 		c->tags = t->tags;
@@ -1469,7 +1447,6 @@ manage(Window w, XWindowAttributes *wa)
 	updatesizehints(c);
 	updatewmhints(c);
 	updatemotifhints(c);
-
 
 	if (getatomprop(c, netatom[NetWMState], XA_ATOM) == netatom[NetWMFullscreen])
 		setfullscreen(c, 1);
@@ -1543,7 +1520,6 @@ motionnotify(XEvent *e)
 		barhover(e, bar);
 		return;
 	}
-
 
 	if (ev->window != root)
 		return;
@@ -1840,7 +1816,6 @@ run(void)
 	XSync(dpy, False);
 	while (running && !XNextEvent(dpy, &ev)) {
 
-
 		if (handler[ev.type])
 			handler[ev.type](&ev); /* call handler */
 	}
@@ -2025,7 +2000,6 @@ setup(void)
 	/* clean up any zombies immediately */
 	sigchld(0);
 
-
 	/* the one line of bloat that would have saved a lot of time for a lot of people */
 	putenv("_JAVA_AWT_WM_NONREPARENTING=1");
 
@@ -2104,13 +2078,11 @@ setup(void)
 	XChangeWindowAttributes(dpy, root, CWEventMask|CWCursor, &wa);
 	XSelectInput(dpy, root, wa.event_mask);
 
-
 	grabkeys();
 	focus(NULL);
 	if (usealtbar)
 		spawnbar();
 }
-
 
 void
 seturgent(Client *c, int urg)
@@ -2252,7 +2224,6 @@ toggleview(const Arg *arg)
 	unsigned int newtagset = selmon->tagset[selmon->seltags] ^ (arg->ui & TAGMASK);;
 	int i;
 
-
 	if (newtagset) {
 		selmon->tagset[selmon->seltags] = newtagset;
 
@@ -2302,7 +2273,6 @@ unmanage(Client *c, int destroyed)
 	Monitor *m = c->mon;
 	XWindowChanges wc;
 
-
 	detach(c);
 	detachstack(c);
 	if (!destroyed) {
@@ -2317,7 +2287,6 @@ unmanage(Client *c, int destroyed)
 		XSetErrorHandler(xerror);
 		XUngrabServer(dpy);
 	}
-
 
 	free(c);
 	focus(NULL);
@@ -2395,7 +2364,6 @@ updatebarpos(Monitor *m)
 	int y_pad = 0;
 	int x_pad = 0;
 
-
 	for (bar = m->bar; bar; bar = bar->next) {
 		bar->bx = m->wx + x_pad;
 		if (bar->external)
@@ -2406,7 +2374,6 @@ updatebarpos(Monitor *m)
 	for (bar = m->bar; bar; bar = bar->next)
 		if (!m->showbar || !bar->showbar)
 			bar->by = -bar->bh - y_pad;
-
 
 	if (!m->showbar)
 		return;
@@ -2708,8 +2675,6 @@ zoom(const Arg *arg)
 		c = (Client*)arg->v;
 	if (!c)
 		return;
-
-
 
 	if (!c->mon->lt[c->mon->sellt]->arrange || !c || c->isfloating)
 		return;

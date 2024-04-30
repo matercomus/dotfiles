@@ -14,9 +14,12 @@
 /* Other patches */
 #include "decorationhints.h"
 #include "pertag.h"
+#include "swaptags.h"
+#include "tagswapmon.h"
 #include "vanitygaps.h"
 #include "xrdb.h"
 /* Layouts */
+#include "layout_centeredmaster.h"
 #include "layout_monocle.h"
 #include "layout_tile.h"
 

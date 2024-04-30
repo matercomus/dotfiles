@@ -14,10 +14,8 @@ setgaps(int oh, int ov, int ih, int iv)
 	selmon->gappih = ih;
 	selmon->gappiv = iv;
 
-
 	arrange(selmon);
 }
-
 
 static void
 togglegaps(const Arg *arg)
