@@ -1,32 +1,65 @@
 #!/bin/bash
 
-# This script replaces spaces with underscores in file names
+# Function to replace spaces, brackets, and " - " in names
+rename_entity() {
+	local entity="$1"
+
+	# Replace spaces, brackets, and " - "
+	local new_entity="${entity// - /-}"
+	new_entity="${new_entity// /_}"
+	new_entity="${new_entity//(/_}"
+	new_entity="${new_entity//)/_}"
+
+	# Check if the name was actually changed
+	if [ "$new_entity" != "$entity" ]; then
+		# Rename the entity
+		mv -v "$entity" "$new_entity"
+	fi
+}
+
+# Function to handle directories recursively if -r flag is given
+process_directories() {
+	local path="$1"
+	find "$path" -depth -type d | while IFS= read -r dir; do
+		rename_entity "$dir"
+	done
+}
+
+# Function to handle files recursively if -r flag is given
+process_files() {
+	local path="$1"
+	find "$path" -depth -type f | while IFS= read -r file; do
+		rename_entity "$file"
+	done
+}
 
 # Check if at least one argument was given
 if [ $# -eq 0 ]; then
-  echo "Error: No arguments were given" >&2
-  exit 1
+	echo "Error: No arguments were given" >&2
+	exit 1
 fi
 
-# Loop through all the arguments
-for file_name in "$@"; do
-  # Check if the file exists
-  if [ ! -e "$file_name" ]; then
-    echo "Error: File does not exist: $file_name" >&2
-    continue
-  fi
+# Check for -r flag
+recursive=false
+if [ "$1" == "-r" ]; then
+	recursive=true
+	shift
+fi
 
-# Replace brackets with nothing
-  new_file_name=$(echo "$file_name" | tr '(' '_')
-  new_file_name=$(echo "$file_name" | tr ')' '_')
-
-  # Replace spaces with underscores in the file name
-  new_file_name=$(echo "$file_name" | tr ' ' '_')
-
-  # Check if the file name was actually changed
-  if [ "$new_file_name" != "$file_name" ]; then
-    # Rename the file
-    mv -v "$file_name" "$new_file_name"
-  fi
+# Process each argument
+for entity in "$@"; do
+	if [ "$recursive" = true ]; then
+		if [ -e "$entity" ]; then
+			process_directories "$entity"
+			process_files "$entity"
+		else
+			echo "Error: File or directory does not exist: $entity" >&2
+		fi
+	else
+		if [ -e "$entity" ]; then
+			rename_entity "$entity"
+		else
+			echo "Error: File or directory does not exist: $entity" >&2
+		fi
+	fi
 done
-
