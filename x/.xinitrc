@@ -39,6 +39,9 @@ export XDG_DATA_HOME=$HOME/.local/share
 # keyring stuff bc of vscode issue
 export $(dbus-launch) &
 
+#ssh agent
+eval $(ssh-agent) &
+
 # run dwm blocks (statusbar)
 dwmblocks &
 

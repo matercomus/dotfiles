@@ -1,5 +1,5 @@
-#!/bin/sh
 alias g='lazygit'
+#!/bin/sh
 alias zsh-update-plugins="find "$ZDOTDIR/plugins" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
 #
 # alias lvim='nvim -u ~/.local/share/lunarvim/lvim/init.lua --cmd "set runtimepath+=~/.local/share/lunarvim/lvim"'
@@ -35,3 +35,6 @@ alias gpg-retrieve="gpg2 --keyserver-options auto-key-retrieve --receive-keys"
 
 # poetry activate project venv
 alias activate-poetry-env="/home/matt/.scripts/poetry-activate-env.sh"
+
+# Connect to VU server for HedgeIOT demo
+alias sshvuhiot="ssh -o ForwardAgent=yes -o ProxyJump=mka299@ssh.data.vu.nl mka299@130.37.53.67"

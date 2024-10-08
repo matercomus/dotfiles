@@ -23,3 +23,4 @@ export TERM='xterm-256color'
 # Path
 export PATH=/usr/local/bin:/usr/sbin:/bin:/usr/bin:$HOME/bin:$HOME/.scripts:$HOME/opt:$HOME/go/bin:$HOME/.local/bin:$path[@]
 
+if [ -f "/home/matt/.config/fabric/fabric-bootstrap.inc" ]; then . "/home/matt/.config/fabric/fabric-bootstrap.inc"; fi

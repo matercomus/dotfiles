@@ -94,6 +94,20 @@ export TERM='xterm-256color'
 # For QT Themes
 export QT_QPA_PLATFORMTHEME=qt5ct
 
+if [ -f "/home/matt/.config/fabric/fabric-bootstrap.inc" ]; then . "/home/matt/.config/fabric/fabric-bootstrap.inc"; fi
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# >>> mamba initialize >>>
+# !! Contents within this block are managed by 'mamba init' !!
+export MAMBA_EXE='/home/matt/opt/miniforge3/conda';
+export MAMBA_ROOT_PREFIX='/home/matt/micromamba';
+__mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__mamba_setup"
+else
+    alias conda="$MAMBA_EXE"  # Fallback on help from mamba activate
+fi
+unset __mamba_setup
+# <<< mamba initialize <<<
