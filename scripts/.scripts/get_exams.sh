@@ -41,7 +41,7 @@ if [ "$selected_pdfs" == "All" ]; then
 		# Construct the full URL correctly
 		full_url="${course%/}/$filename"
 		echo "Downloading: $full_url"
-		wget --no-check-certificate -P "$download_dir" "$full_url"
+		wget --no-check-certificate -P "$download_dir" "$full_url" &
 	done
 else
 	# Download only the selected PDFs
@@ -51,8 +51,11 @@ else
 		# Construct the full URL correctly
 		full_url="${course%/}/$filename"
 		echo "Downloading: $full_url"
-		wget --no-check-certificate -P "$download_dir" "$full_url"
+		wget --no-check-certificate -P "$download_dir" "$full_url" &
 	done
 fi
+
+# Wait for all background jobs to finish
+wait
 
 echo "Download complete! Files saved to $download_dir"
