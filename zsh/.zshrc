@@ -80,7 +80,7 @@ autoload edit-command-line; zle -N edit-command-line
 
 # Default Apps
 export EDITOR="lvim"
-export READER="llpp"
+export READER="zathura"
 export VISUAL="lvim"
 export TERMINAL="alacritty"
 export BROWSER="firefox"
