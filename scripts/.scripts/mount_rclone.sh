@@ -2,12 +2,13 @@
 
 # Function to display usage message
 usage() {
-    echo "Usage: $0 <username> [-l <local_path>] [-r <remote_path>] [-n <rclone_remote_name>]"
+    echo "Usage: $0 <username> [-l <local_path>] [-r <remote_path>] [-n <rclone_remote_name>] [-v]"
     echo
     echo "  <username>             Your username on the remote server"
-    echo "  -l <local_path>        Local mount point (default: ~/vu-hedgeiot-server)"
+    echo "  -l <local_path>        Local mount point (default: ~/<rclone_remote_name>-remote)"
     echo "  -r <remote_path>       Remote path to mount (default: /home/<username>/ )"
     echo "  -n <rclone_remote_name>Name of the rclone remote in your config (default: hedgeiot)"
+    echo "  -v                     Verbose mode. Prints the final rclone command."
     exit 1
 }
 
@@ -26,12 +27,13 @@ USERNAME=$1
 shift
 
 # Default values
-LOCAL_PATH=~/vu-hedgeiot-server
-REMOTE_PATH=/home/${USERNAME}/
 RCLONE_REMOTE=hedgeiot   # The remote name in rclone config
+LOCAL_PATH=~/${RCLONE_REMOTE}-remote
+REMOTE_PATH=/home/${USERNAME}/
+VERBOSE=0
 
 # Parse optional flags
-while getopts "l:r:n:" opt; do
+while getopts "l:r:n:v" opt; do
     case ${opt} in
         l)
             LOCAL_PATH=$OPTARG
@@ -41,6 +43,10 @@ while getopts "l:r:n:" opt; do
             ;;
         n)
             RCLONE_REMOTE=$OPTARG
+            LOCAL_PATH=~/${RCLONE_REMOTE}-remote
+            ;;
+        v)
+            VERBOSE=1
             ;;
         \?)
             usage
@@ -53,14 +59,16 @@ if [ ! -d "$LOCAL_PATH" ]; then
     mkdir -p "$LOCAL_PATH"
 fi
 
-# Mount the remote via rclone
-# --vfs-cache-mode writes: ensures partial writes are cached locally before uploading
-# --daemon (Linux/macOS): run in background so you don't block the terminal
-rclone mount \
-    "${RCLONE_REMOTE}:${REMOTE_PATH}" \
-    "${LOCAL_PATH}" \
-    --vfs-cache-mode writes \
-    --daemon
+# Construct the rclone command
+RCLONE_CMD="rclone mount ${RCLONE_REMOTE}:${REMOTE_PATH} ${LOCAL_PATH} --vfs-cache-mode writes --daemon"
+
+# Print the rclone command if verbose mode is enabled
+if [ $VERBOSE -eq 1 ]; then
+    echo "Running command: $RCLONE_CMD"
+fi
+
+# Execute the rclone command
+$RCLONE_CMD
 
 # Check exit code
 if [ $? -eq 0 ]; then
